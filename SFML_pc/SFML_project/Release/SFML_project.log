@@ -1,0 +1,58 @@
+﻿  Game.cpp
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(82,15): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(89,12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(144,10): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(145,10): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(148,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(148,18): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(168,10): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(169,10): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(173,9): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(176,28): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(180,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(180,18): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(171,8): warning C4101: 'v': unreferenced local variable
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(195,25): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(209,9): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(225,8): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(245,25): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(259,9): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(267,8): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(330,63): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(331,63): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(335,31): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(359,20): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(360,20): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(363,20): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(364,20): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(367,20): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(368,20): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(371,20): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(372,20): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(375,24): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(378,24): warning C4305: '-=': truncation from 'double' to 'float'
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(450,26): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(451,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(452,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(502,17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(513,35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(515,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(533,52): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(533,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(559,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(563,43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(565,23): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(566,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(571,50): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(571,25): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(481,19): warning C4101: 'y1': unreferenced local variable
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(481,11): warning C4101: 'x1': unreferenced local variable
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(481,15): warning C4101: 'y0': unreferenced local variable
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(481,7): warning C4101: 'x0': unreferenced local variable
+C:\Users\User\Documents\matt_work\SFML_pc\SFML_project\Game.cpp(508,13): warning C4101: 'shade': unreferenced local variable
+  main.cpp
+  Generating code
+  Previous IPDB was built with incompatible compiler, fall back to full compilation.
+  All 98 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  SFML_project.vcxproj -> C:\Users\User\Documents\matt_work\SFML_pc\Release\SFML_project.exe
