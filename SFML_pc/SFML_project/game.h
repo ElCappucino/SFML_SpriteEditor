@@ -77,7 +77,7 @@ static GameObj* gameObjInstCreate(int type, glm::vec3 pos, glm::vec3 vel, glm::v
 static void		gameObjInstDestroy(GameObj& pInst);
 
 
-
+void TextBoxHandler(const sf::Event& event, sf::RenderWindow& window);
 void GameInit();
 void GameUpdate(double dt, long frame, int &state);
 void GameDraw(double dt);

@@ -1,55 +1,26 @@
 ﻿  game.cpp
-C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(114,104): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(47,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(71,85): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(114,68): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(71,53): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(120,104): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(74,57): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(120,68): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(74,35): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(126,104): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(126,68): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(132,104): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(132,68): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(182,57): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(182,35): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(183,64): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(75,64): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=unsigned int
@@ -58,7 +29,7 @@ C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(183,64): warni
           [
               T=float
           ]
-C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(183,44): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(75,44): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=unsigned int
@@ -67,25 +38,10 @@ C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(183,44): warni
           [
               T=float
           ]
-C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(220,42): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(313,41): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-          and
-          [
-              T=float
-          ]
-C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(319,41): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-          and
-          [
-              T=float
-          ]
-  main.cpp
-  Generating Code...
+C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(83,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(93,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(136,33): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(138,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(144,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\SFML_project\game.cpp(148,20): warning C4018: '<': signed/unsigned mismatch
   SFML_project.vcxproj -> C:\Users\Admin\Desktop\SpriteEditor\SFML_pc\Debug\SFML_project.exe

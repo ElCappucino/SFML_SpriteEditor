@@ -4,12 +4,7 @@
 //				press esc to quit
 // ---------------------------------------------------------------------------
 
-
-
-#include <SFML/Graphics.hpp>
-#include <SFML/System/Clock.hpp>
 #include "game.h"
-#include <iostream>
 
 sf::RenderWindow window;
 
@@ -71,6 +66,7 @@ int main()
             {
                 if (event.type == sf::Event::Closed)
                     window.close();
+                TextBoxHandler(event, window);
             }
 
             // Check if User want to restart level
