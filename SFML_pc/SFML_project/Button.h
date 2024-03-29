@@ -8,6 +8,7 @@ public:
     sf::Text buttonText;
     sf::Color normalColor, hoverColor, clickColor;
     enum class State { Normal, Hovered, Clicked };
+
     State state = Button::State::Normal;
     std::function<void()> onClick; // Callback function for click
     // Constructor with text, position, size, and default colors
@@ -28,7 +29,7 @@ public:
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
                 state = Button::State::Clicked;
-                // onClick();
+                onClick();
             }
             else {
                 state = Button::State::Hovered;
@@ -41,7 +42,7 @@ public:
     }
 
     // Function to set a callback function to be called on button click
-    void setOnClickCallback(std::function<void()>& callback) {
+    void setOnClickCallback(const std::function<void()>& callback) {
         onClick = callback;
     }
 
@@ -80,7 +81,7 @@ private:
 
     void updateTextPosition(){
         buttonText.setPosition(buttonShape.getPosition() + sf::Vector2f(buttonShape.getSize().x / 2.f - buttonText.getLocalBounds().width / 2.f,
-                buttonShape.getSize().y / 2.f - buttonText.getLocalBounds().height / 2.f));
+                buttonShape.getSize().y / 2.f - buttonText.getLocalBounds().height));
     }
 };
 
