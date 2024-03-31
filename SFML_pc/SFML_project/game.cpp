@@ -62,20 +62,21 @@ std::function<void()> ToggleEditMode([] {
 
 std::function<void()> RedoSlicing([] {
 	if (fills.size() > 0) {
-		fills.pop_back();
+		sliceFrames.pop_back();
 		pinnedBorders.pop_back();
 	}
 	});
 
 std::function<void()> ClearSlicing([] {
 	if (fills.size() > 0) {
-		fills.clear();
+		sliceFrames.clear();
 		pinnedBorders.clear();
 	}
 	});
 
 std::function<void()> ExportCoordinates([] {
-	std::ofstream outputfile("output.txt");
+	std::ofstream outputfile;
+	outputfile.open("output\\output.txt", std::ofstream::out | std::ofstream::trunc);
 	for (int i = 0; i < sliceFrames.size(); i++) {
 		outputfile << i << std::endl;
 		outputfile << sliceFrames[i].topleft.x << " " << sliceFrames[i].topleft.y << std::endl;
@@ -84,6 +85,7 @@ std::function<void()> ExportCoordinates([] {
 		outputfile << sliceFrames[i].bottomright.x << " " << sliceFrames[i].bottomright.y << std::endl;
 		outputfile << std::endl;
 	}
+	outputfile.close();
 	});
 
 void GameInit() {
