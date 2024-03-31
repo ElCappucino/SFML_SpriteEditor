@@ -2,6 +2,7 @@
 #include "Textbox.h"
 #include "Button.h"
 #include <vector>
+#include <fstream>
 
 static sf::Image    currentImage;		//	read color pixel
 static sf::Texture	currentTexture;		//	show on screen
@@ -20,6 +21,7 @@ static std::vector<sf::Text*> texts;
 static std::vector<Button*> buttons;
 static std::vector<sf::CircleShape*> pins;
 static std::vector<sf::Vector2i> fills;
+static std::vector <sf::RectangleShape*> pinnedBorders;
 static sf::String currentString;
 static bool isSelected = false;
 
@@ -55,26 +57,37 @@ std::function<void()> ToggleEditMode([] {
 	}
 	});
 
+std::function<void()> ExportCoordinates([] {
+	std::ofstream outputfile("output.txt");
+	for (int i = 0; i < sliceFrames.size(); i++) {
+		outputfile << i << std::endl;
+		outputfile << sliceFrames[i].topleft.x << " " << sliceFrames[i].topleft.y << std::endl;
+		outputfile << sliceFrames[i].topright.x << " " << sliceFrames[i].topright.y << std::endl;
+		outputfile << sliceFrames[i].bottomleft.x << " " << sliceFrames[i].bottomleft.y << std::endl;
+		outputfile << sliceFrames[i].bottomright.x << " " << sliceFrames[i].bottomright.y << std::endl;
+		outputfile << std::endl;
+	}
+	});
 void GameInit() {
 
 	mainfont.loadFromFile("asset\\THSarabunNew.ttf");
 
-	textbox1.text.setFont(mainfont);
+	/*textbox1.text.setFont(mainfont);
 	textbox2.text.setFont(mainfont);
 	textbox3.text.setFont(mainfont);
 
 	textboxes.push_back(textbox1);
 	textboxes.push_back(textbox2);
-	textboxes.push_back(textbox3);
+	textboxes.push_back(textbox3);*/
 
-	texts.push_back(new sf::Text("Background Color", mainfont, 32));
+	texts.push_back(new sf::Text("Background Color = 255, 255, 255", mainfont, 32));
 	texts[0]->setPosition(150, 200);
-	texts.push_back(new sf::Text("R", mainfont, 32));
+	/*texts.push_back(new sf::Text("R", mainfont, 32));
 	texts[1]->setPosition(120, 300);
 	texts.push_back(new sf::Text("G", mainfont, 32));
 	texts[2]->setPosition(120, 400);
 	texts.push_back(new sf::Text("B", mainfont, 32));
-	texts[3]->setPosition(120, 500);
+	texts[3]->setPosition(120, 500);*/
 
 	for (int i = 0; i < texts.size(); i++) {
 		texts[i]->setStyle(sf::Text::Bold);
@@ -84,15 +97,13 @@ void GameInit() {
 	buttons.push_back(new Button("Edit Mode/Stand by", sf::Vector2f(150, 600), sf::Vector2f(250, 80), 
 		sf::Color::White, sf::Color::Cyan, sf::Color::Blue, 32, mainfont));
 	buttons[0]->setOnClickCallback(ToggleEditMode);
-	//std::cout << buttons[0]->buttonText.getPosition().x << std::endl;
 
-	buttons.push_back(new Button("Slice", sf::Vector2f(150, 700), sf::Vector2f(250, 80),
-		sf::Color::White, sf::Color::Cyan, sf::Color::Blue, 32, mainfont));
-	//std::cout << buttons[1]->buttonText.getPosition().x << std::endl;
+	/*buttons.push_back(new Button("Slice", sf::Vector2f(150, 700), sf::Vector2f(250, 80),
+		sf::Color::White, sf::Color::Cyan, sf::Color::Blue, 32, mainfont));*/
 
 	buttons.push_back(new Button("Export", sf::Vector2f(150, 800), sf::Vector2f(250, 80),
 		sf::Color::White, sf::Color::Cyan, sf::Color::Blue, 32, mainfont));
-	//std::cout << buttons[2]->buttonText.getPosition().x << std::endl;
+	buttons[1]->setOnClickCallback(ExportCoordinates);
 
 	buttons.push_back(new Button("Redo", sf::Vector2f(600, 800), sf::Vector2f(100, 50),
 		sf::Color::White, sf::Color::Cyan, sf::Color::Blue, 32, mainfont));
@@ -108,8 +119,8 @@ void GameInit() {
 	spritemultiplyer = 2;
 	imageOriginX = 700 - ((currentSprite.getTextureRect().width * spritemultiplyer) / 2);
 	imageOriginY = 500 - ((currentSprite.getTextureRect().height * spritemultiplyer) / 2);
-	std::cout << "imageOriginX + (currentSprite.getTextureRect().width * spritemultiplyer)  = " << imageOriginX + (currentSprite.getTextureRect().width * spritemultiplyer) << std::endl;
-	std::cout << "imageOriginY + (currentSprite.getTextureRect().height * spritemultiplyer) = " << imageOriginY + (currentSprite.getTextureRect().height * spritemultiplyer) << std::endl;
+	//std::cout << "imageOriginX + (currentSprite.getTextureRect().width * spritemultiplyer)  = " << imageOriginX + (currentSprite.getTextureRect().width * spritemultiplyer) << std::endl;
+	//std::cout << "imageOriginY + (currentSprite.getTextureRect().height * spritemultiplyer) = " << imageOriginY + (currentSprite.getTextureRect().height * spritemultiplyer) << std::endl;
 	// set view
 	view.setCenter(window.getSize().x/2, window.getSize().y/2);
 	view.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
@@ -125,6 +136,7 @@ void TextBoxHandler(const sf::Event& event, sf::RenderWindow& window) {
 		textboxes[i].handleTextInput(event);
 	}
 }
+
 void FloodFill(int x, int y, sf::Color currentcolor) {
 
 	int w = currentImage.getSize().x;
@@ -133,7 +145,7 @@ void FloodFill(int x, int y, sf::Color currentcolor) {
 	fills.clear();
 	std::vector<sf::Vector2i> queue;
 	if (currentcolor == backgrondColor) { // work normally
-		std::cout << "current color = background color" << std::endl;
+		//std::cout << "current color = background color" << std::endl;
 		return;
 	}
 
@@ -177,30 +189,31 @@ void FloodFill(int x, int y, sf::Color currentcolor) {
 			queue.push_back(sf::Vector2i(currentQueue.x - 1, currentQueue.y));
 			queue.push_back(sf::Vector2i(currentQueue.x, currentQueue.y + 1));
 			queue.push_back(sf::Vector2i(currentQueue.x, currentQueue.y - 1));
-			std::cout << "Fill push_back complete" << std::endl;
+			//std::cout << "Fill push_back complete" << std::endl;
 		}
 	}
 }
+
 void BorderSetup(sf::Vector2i mousPos) {
-	std::cout << "Hello" << std::endl;
+	//std::cout << "Hello" << std::endl;
 	if (sf::Mouse::getPosition(window).x < imageOriginX ||
 		sf::Mouse::getPosition(window).x > imageOriginX + (currentSprite.getTextureRect().width * spritemultiplyer) ||
 		sf::Mouse::getPosition(window).y < imageOriginY ||
 		sf::Mouse::getPosition(window).y > imageOriginY + (currentSprite.getTextureRect().height * spritemultiplyer)) {
 
-		std::cout << "Error: out of image bound" << std::endl;
+		//std::cout << "Error: out of image bound" << std::endl;
 	}
 	else {
 		sf::Color currentColor = currentImage.getPixel((sf::Mouse::getPosition(window).x - imageOriginX) / spritemultiplyer, (sf::Mouse::getPosition(window).y - imageOriginY) / spritemultiplyer);
-		std::cout << (int)currentColor.r << ", " << (int)currentColor.g << ", " << (int)currentColor.b << std::endl;
-		std::cout << "Mouse position: x " << sf::Mouse::getPosition(window).x << " y " << sf::Mouse::getPosition(window).y << std::endl;
+		//std::cout << (int)currentColor.r << ", " << (int)currentColor.g << ", " << (int)currentColor.b << std::endl;
+		//std::cout << "Mouse position: x " << sf::Mouse::getPosition(window).x << " y " << sf::Mouse::getPosition(window).y << std::endl;
 		int startPosX = (sf::Mouse::getPosition(window).x - imageOriginX) / spritemultiplyer;
 		int startPosY = (sf::Mouse::getPosition(window).y - imageOriginY) / spritemultiplyer;
-		std::cout << "startPosX " << startPosX << " startPosY " << startPosY << std::endl;
+		//std::cout << "startPosX " << startPosX << " startPosY " << startPosY << std::endl;
 		FloodFill(startPosX, startPosY, currentColor);
 		int minX, maxX, minY, maxY;
 		for (int i = 0; i < fills.size(); i++) {
-			std::cout << "fills no" << i << ": " << fills[i].x << " " << fills[i].y << std::endl;
+			//std::cout << "fills no" << i << ": " << fills[i].x << " " << fills[i].y << std::endl;
 			if (i == 0) {
 				minX = fills[i].x;
 				minY = fills[i].y;
@@ -226,14 +239,23 @@ void BorderSetup(sf::Vector2i mousPos) {
 						  sf::Vector2i(maxX, minY),
 						  sf::Vector2i(minX, maxY),
 						  sf::Vector2i(maxX, maxY) };
-		std::cout << "(" << newslice.topleft.x << "," << newslice.topleft.y << ")" << std::endl;
-		std::cout << "(" << newslice.topright.x << "," << newslice.topright.y << ")" << std::endl;
-		std::cout << "(" << newslice.bottomleft.x << "," << newslice.bottomleft.y << ")" << std::endl;
-		std::cout << "(" << newslice.bottomright.x << "," << newslice.bottomright.y << ")" << std::endl;
+		//std::cout << "(" << newslice.topleft.x << "," << newslice.topleft.y << ")" << std::endl;
+		//std::cout << "(" << newslice.topright.x << "," << newslice.topright.y << ")" << std::endl;
+		//std::cout << "(" << newslice.bottomleft.x << "," << newslice.bottomleft.y << ")" << std::endl;
+		//std::cout << "(" << newslice.bottomright.x << "," << newslice.bottomright.y << ")" << std::endl;
+		sf::RectangleShape *border = new sf::RectangleShape();
+		sf::Vector2i topleft_resize = (sf::Vector2i(imageOriginX + (newslice.topleft.x * spritemultiplyer), imageOriginY + (newslice.topleft.y * spritemultiplyer)));
+		sf::Vector2i bottomright_resize = (sf::Vector2i(imageOriginX + (newslice.bottomright.x * spritemultiplyer), imageOriginY + (newslice.bottomright.y * spritemultiplyer)));
+		border->setFillColor(sf::Color::Transparent);
+		border->setOutlineColor(sf::Color::Red);
+		border->setOutlineThickness(2.0f);
+		border->setPosition(sf::Vector2f(topleft_resize));
+		border->setSize(sf::Vector2f(bottomright_resize.x - topleft_resize.x + 1, bottomright_resize.y - topleft_resize.y + 1));
+		//std::cout << "borderPosition: " << border->getPosition().x + bottomright_resize.x - topleft_resize.x << ", " << border->getPosition().y + bottomright_resize.y - topleft_resize.y << std::endl;
+		pinnedBorders.push_back(border);
 		sliceFrames.push_back(newslice);
 	}
 }
-
 
 void GameUpdate(double dt, long frame, int &state) {
 
@@ -249,30 +271,15 @@ void GameUpdate(double dt, long frame, int &state) {
 				BorderSetup(sf::Mouse::getPosition(window));
 			}
 		}
+		else {
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				
+			}
+		}
 		mousestate = MouseState::Hold;
 	}
 	else if (sf::Event::MouseButtonReleased) {
 		mousestate = MouseState::Release;
-	}
-	
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::K)) {
-
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::J)) {
-		
 	}
 	//zoom-UO
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::U)) {
@@ -311,6 +318,10 @@ void GameDraw(double dt) {
 
 	for (int i = 0; i < buttons.size(); i++) {
 		buttons[i]->draw(window);
+	}
+	for (int i = 0; i < pinnedBorders.size(); i++) {
+		//std::cout << "draw border" << std::endl;
+		window.draw(*pinnedBorders[i]);
 	}
 
 	// swap framebuffer
