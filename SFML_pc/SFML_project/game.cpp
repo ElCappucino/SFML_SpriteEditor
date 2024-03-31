@@ -13,6 +13,9 @@ static int imageOriginY;
 
 static sf::Font mainfont;
 
+static int IMAGE_POSITION_X = 500;
+static int IMAGE_POSITION_Y = 400;
+
 static Textbox textbox1(150, 300, 300, 50);
 static Textbox textbox2(150, 400, 300, 50);
 static Textbox textbox3(150, 500, 300, 50);
@@ -57,6 +60,20 @@ std::function<void()> ToggleEditMode([] {
 	}
 	});
 
+std::function<void()> RedoSlicing([] {
+	if (fills.size() > 0) {
+		fills.pop_back();
+		pinnedBorders.pop_back();
+	}
+	});
+
+std::function<void()> ClearSlicing([] {
+	if (fills.size() > 0) {
+		fills.clear();
+		pinnedBorders.clear();
+	}
+	});
+
 std::function<void()> ExportCoordinates([] {
 	std::ofstream outputfile("output.txt");
 	for (int i = 0; i < sliceFrames.size(); i++) {
@@ -68,26 +85,13 @@ std::function<void()> ExportCoordinates([] {
 		outputfile << std::endl;
 	}
 	});
+
 void GameInit() {
 
 	mainfont.loadFromFile("asset\\THSarabunNew.ttf");
 
-	/*textbox1.text.setFont(mainfont);
-	textbox2.text.setFont(mainfont);
-	textbox3.text.setFont(mainfont);
-
-	textboxes.push_back(textbox1);
-	textboxes.push_back(textbox2);
-	textboxes.push_back(textbox3);*/
-
 	texts.push_back(new sf::Text("Background Color = 255, 255, 255", mainfont, 32));
 	texts[0]->setPosition(150, 200);
-	/*texts.push_back(new sf::Text("R", mainfont, 32));
-	texts[1]->setPosition(120, 300);
-	texts.push_back(new sf::Text("G", mainfont, 32));
-	texts[2]->setPosition(120, 400);
-	texts.push_back(new sf::Text("B", mainfont, 32));
-	texts[3]->setPosition(120, 500);*/
 
 	for (int i = 0; i < texts.size(); i++) {
 		texts[i]->setStyle(sf::Text::Bold);
@@ -98,18 +102,17 @@ void GameInit() {
 		sf::Color::White, sf::Color::Cyan, sf::Color::Blue, 32, mainfont));
 	buttons[0]->setOnClickCallback(ToggleEditMode);
 
-	/*buttons.push_back(new Button("Slice", sf::Vector2f(150, 700), sf::Vector2f(250, 80),
-		sf::Color::White, sf::Color::Cyan, sf::Color::Blue, 32, mainfont));*/
-
-	buttons.push_back(new Button("Export", sf::Vector2f(150, 800), sf::Vector2f(250, 80),
+	buttons.push_back(new Button("Export", sf::Vector2f(150, 700), sf::Vector2f(250, 80),
 		sf::Color::White, sf::Color::Cyan, sf::Color::Blue, 32, mainfont));
 	buttons[1]->setOnClickCallback(ExportCoordinates);
 
-	buttons.push_back(new Button("Redo", sf::Vector2f(600, 800), sf::Vector2f(100, 50),
+	buttons.push_back(new Button("Redo", sf::Vector2f(150, 800), sf::Vector2f(100, 50),
 		sf::Color::White, sf::Color::Cyan, sf::Color::Blue, 32, mainfont));
-	buttons.push_back(new Button("Clear", sf::Vector2f(750, 800), sf::Vector2f(100, 50),
-		sf::Color::White, sf::Color::Cyan, sf::Color::Blue, 32, mainfont));
+	buttons[2]->setOnClickCallback(RedoSlicing);
 
+	buttons.push_back(new Button("Clear", sf::Vector2f(300, 800), sf::Vector2f(100, 50),
+		sf::Color::White, sf::Color::Cyan, sf::Color::Blue, 32, mainfont));
+	buttons[3]->setOnClickCallback(ClearSlicing);
 
 	currentImage.loadFromFile("asset\\testpic2.png");
 	currentTexture.loadFromFile("asset\\testpic2.png");
@@ -117,8 +120,8 @@ void GameInit() {
 	currentSprite.setOrigin(currentTexture.getSize().x / 2, currentTexture.getSize().y / 2);
 	
 	spritemultiplyer = 2;
-	imageOriginX = 700 - ((currentSprite.getTextureRect().width * spritemultiplyer) / 2);
-	imageOriginY = 500 - ((currentSprite.getTextureRect().height * spritemultiplyer) / 2);
+	imageOriginX = IMAGE_POSITION_X - ((currentSprite.getTextureRect().width * spritemultiplyer) / 2);
+	imageOriginY = IMAGE_POSITION_Y - ((currentSprite.getTextureRect().height * spritemultiplyer) / 2);
 	//std::cout << "imageOriginX + (currentSprite.getTextureRect().width * spritemultiplyer)  = " << imageOriginX + (currentSprite.getTextureRect().width * spritemultiplyer) << std::endl;
 	//std::cout << "imageOriginY + (currentSprite.getTextureRect().height * spritemultiplyer) = " << imageOriginY + (currentSprite.getTextureRect().height * spritemultiplyer) << std::endl;
 	// set view
@@ -210,50 +213,68 @@ void BorderSetup(sf::Vector2i mousPos) {
 		int startPosX = (sf::Mouse::getPosition(window).x - imageOriginX) / spritemultiplyer;
 		int startPosY = (sf::Mouse::getPosition(window).y - imageOriginY) / spritemultiplyer;
 		//std::cout << "startPosX " << startPosX << " startPosY " << startPosY << std::endl;
-		FloodFill(startPosX, startPosY, currentColor);
-		int minX, maxX, minY, maxY;
-		for (int i = 0; i < fills.size(); i++) {
-			//std::cout << "fills no" << i << ": " << fills[i].x << " " << fills[i].y << std::endl;
-			if (i == 0) {
-				minX = fills[i].x;
-				minY = fills[i].y;
-				maxX = fills[i].x;
-				maxY = fills[i].y;
-			}
-			else {
-				if (fills[i].x < minX) {
+		if (currentColor == backgrondColor) {
+			return;
+		}
+		else {
+			FloodFill(startPosX, startPosY, currentColor);
+			int minX, maxX, minY, maxY;
+			for (int i = 0; i < fills.size(); i++) {
+				//std::cout << "fills no" << i << ": " << fills[i].x << " " << fills[i].y << std::endl;
+				if (i == 0) {
 					minX = fills[i].x;
-				}
-				if (fills[i].x > maxX) {
-					maxX = fills[i].x;
-				}
-				if (fills[i].y < minY) {
 					minY = fills[i].y;
-				}
-				if (fills[i].y > maxY) {
+					maxX = fills[i].x;
 					maxY = fills[i].y;
 				}
+				else {
+					if (fills[i].x < minX) {
+						minX = fills[i].x;
+					}
+					if (fills[i].x > maxX) {
+						maxX = fills[i].x;
+					}
+					if (fills[i].y < minY) {
+						minY = fills[i].y;
+					}
+					if (fills[i].y > maxY) {
+						maxY = fills[i].y;
+					}
+				}
+			}
+			slice newslice = { sf::Vector2i(minX, minY),
+							  sf::Vector2i(maxX, minY),
+							  sf::Vector2i(minX, maxY),
+							  sf::Vector2i(maxX, maxY) };
+			//std::cout << "(" << newslice.topleft.x << "," << newslice.topleft.y << ")" << std::endl;
+			//std::cout << "(" << newslice.topright.x << "," << newslice.topright.y << ")" << std::endl;
+			//std::cout << "(" << newslice.bottomleft.x << "," << newslice.bottomleft.y << ")" << std::endl;
+			//std::cout << "(" << newslice.bottomright.x << "," << newslice.bottomright.y << ")" << std::endl;
+			sf::RectangleShape* border = new sf::RectangleShape();
+			sf::Vector2i topleft_resize = (sf::Vector2i(imageOriginX + (newslice.topleft.x * spritemultiplyer), imageOriginY + (newslice.topleft.y * spritemultiplyer)));
+			sf::Vector2i bottomright_resize = (sf::Vector2i(imageOriginX + (newslice.bottomright.x * spritemultiplyer), imageOriginY + (newslice.bottomright.y * spritemultiplyer)));
+			border->setFillColor(sf::Color::Transparent);
+			border->setOutlineColor(sf::Color::Red);
+			border->setOutlineThickness(2.0f);
+			border->setPosition(sf::Vector2f(topleft_resize));
+			border->setSize(sf::Vector2f(bottomright_resize.x - topleft_resize.x + 1, bottomright_resize.y - topleft_resize.y + 1));
+			//std::cout << "borderPosition: " << border->getPosition().x + bottomright_resize.x - topleft_resize.x << ", " << border->getPosition().y + bottomright_resize.y - topleft_resize.y << std::endl;
+			
+			bool isDup = false;
+			for (int i = 0; i < sliceFrames.size(); i++) {
+				if (sliceFrames[i].topleft == newslice.topleft &&
+					sliceFrames[i].topright == newslice.topright &&
+					sliceFrames[i].bottomleft == newslice.bottomleft &&
+					sliceFrames[i].bottomright == newslice.bottomright) {
+					
+					isDup = true;
+				}
+			}
+			if (!isDup) {
+				pinnedBorders.push_back(border);
+				sliceFrames.push_back(newslice);
 			}
 		}
-		slice newslice = { sf::Vector2i(minX, minY),
-						  sf::Vector2i(maxX, minY),
-						  sf::Vector2i(minX, maxY),
-						  sf::Vector2i(maxX, maxY) };
-		//std::cout << "(" << newslice.topleft.x << "," << newslice.topleft.y << ")" << std::endl;
-		//std::cout << "(" << newslice.topright.x << "," << newslice.topright.y << ")" << std::endl;
-		//std::cout << "(" << newslice.bottomleft.x << "," << newslice.bottomleft.y << ")" << std::endl;
-		//std::cout << "(" << newslice.bottomright.x << "," << newslice.bottomright.y << ")" << std::endl;
-		sf::RectangleShape *border = new sf::RectangleShape();
-		sf::Vector2i topleft_resize = (sf::Vector2i(imageOriginX + (newslice.topleft.x * spritemultiplyer), imageOriginY + (newslice.topleft.y * spritemultiplyer)));
-		sf::Vector2i bottomright_resize = (sf::Vector2i(imageOriginX + (newslice.bottomright.x * spritemultiplyer), imageOriginY + (newslice.bottomright.y * spritemultiplyer)));
-		border->setFillColor(sf::Color::Transparent);
-		border->setOutlineColor(sf::Color::Red);
-		border->setOutlineThickness(2.0f);
-		border->setPosition(sf::Vector2f(topleft_resize));
-		border->setSize(sf::Vector2f(bottomright_resize.x - topleft_resize.x + 1, bottomright_resize.y - topleft_resize.y + 1));
-		//std::cout << "borderPosition: " << border->getPosition().x + bottomright_resize.x - topleft_resize.x << ", " << border->getPosition().y + bottomright_resize.y - topleft_resize.y << std::endl;
-		pinnedBorders.push_back(border);
-		sliceFrames.push_back(newslice);
 	}
 }
 
@@ -262,7 +283,9 @@ void GameUpdate(double dt, long frame, int &state) {
 	mousePos = (sf::Vector2f)sf::Mouse::getPosition(window);
 
 	for (int i = 0; i < buttons.size(); i++) {
-		buttons[i]->handleClick(mousePos);
+		if (mousestate == MouseState::Release) {
+			buttons[i]->handleClick(mousePos);
+		}
 	}
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
@@ -303,7 +326,7 @@ void GameDraw(double dt) {
 	currentSprite.setTextureRect(sf::IntRect(0, 0, w, h));
 
 	
-	currentSprite.setPosition(700, 500);
+	currentSprite.setPosition(IMAGE_POSITION_X, IMAGE_POSITION_Y);
 	currentSprite.setScale(spritemultiplyer, spritemultiplyer);
 	
 	for (int i = 0; i < textboxes.size(); i++) {
