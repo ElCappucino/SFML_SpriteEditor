@@ -76,7 +76,7 @@ std::function<void()> ClearSlicing([] {
 
 std::function<void()> ExportCoordinates([] {
 	std::ofstream outputfile;
-	outputfile.open("output\\output.txt", std::ofstream::out | std::ofstream::trunc);
+	outputfile.open("output/output.txt", std::ofstream::out | std::ofstream::trunc);
 	for (int i = 0; i < sliceFrames.size(); i++) {
 		outputfile << i << std::endl;
 		outputfile << sliceFrames[i].topleft.x << " " << sliceFrames[i].topleft.y << std::endl;
@@ -90,7 +90,7 @@ std::function<void()> ExportCoordinates([] {
 
 void GameInit() {
 
-	mainfont.loadFromFile("asset\\THSarabunNew.ttf");
+	mainfont.loadFromFile("asset/THSarabunNew.ttf");
 
 	texts.push_back(new sf::Text("Background Color = 255, 255, 255", mainfont, 32));
 	texts[0]->setPosition(150, 200);
@@ -116,8 +116,8 @@ void GameInit() {
 		sf::Color::White, sf::Color::Cyan, sf::Color::Blue, 32, mainfont));
 	buttons[3]->setOnClickCallback(ClearSlicing);
 
-	currentImage.loadFromFile("asset\\testpic2.png");
-	currentTexture.loadFromFile("asset\\testpic2.png");
+	currentImage.loadFromFile("asset/testpic2.png");
+	currentTexture.loadFromFile("asset/testpic2.png");
 	currentSprite.setTexture(currentTexture);
 	currentSprite.setOrigin(currentTexture.getSize().x / 2, currentTexture.getSize().y / 2);
 	
